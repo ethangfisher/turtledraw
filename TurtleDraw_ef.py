@@ -9,10 +9,15 @@ window.title("Turtle Draw")
 window.bgcolor("white")
 
 turtleDraw = turtle.Turtle()
-turtleDraw.hideturtle()                    # hide while moving/drawing for neatness
-turtleDraw.speed(0)                        # maximum speed
-turtleDraw.penup()                         # start with pen up (so origin->first point not drawn)
+turtleDraw.hideturtle()                   
+turtleDraw.speed(10)                        
+turtleDraw.penup()                        
 turtleDraw.showturtle()
+
+writer = turtle.Turtle()
+writer.hideturtle()
+writer.penup()
+writer.speed(10)
 
 fname = input("Enter input filename: ").strip()
 try:
@@ -22,27 +27,26 @@ except Exception as e:
     'return'
 
 total_distance = 0.0
-prev_point = None   # holds (x, y) of previous connected point when pen is down
+prev_point = None   
 pen_down = False
 
-    # Read file line by line (for loop), strip whitespace, split into pieces
+    
 for line in file:
     raw = line.strip()
     if raw == "":
         continue
     parts = raw.split()
 
-        # detect 'stop' lines (line that contains just the word stop)
+        
     if parts[0].lower() == "stop":
-        # lift pen, mark disconnected (prev_point reset)
+        
         turtleDraw.penup()
         pen_down = False
         prev_point = None
         continue
 
-        # non-stop: expected format: color x y
     if len(parts) < 3:
-        # malformed line - skip (or could warn)
+
         print(f"Skipping malformed line: {raw}")
         continue
 
@@ -53,30 +57,39 @@ for line in file:
     except ValueError:
         print(f"Skipping line with non-numeric coords: {raw}")
         continue
-
-        # Change color before moving/drawing
+    
     try:
         turtleDraw.pencolor(color)
     except Exception:
-            # if color invalid, fall back to black but keep going
+
         turtleDraw.pencolor("black")
     if prev_point is None:
         turtleDraw.penup()
         turtleDraw.goto(x, y)
-            # prepare to draw the next connection from this point
+            
         turtleDraw.pendown()
         pen_down = True
         prev_point = (x, y)
     else:
-            # We have a previous point in the same connected run: draw from prev_point to (x,y)
+
         if not pen_down:
             turtleDraw.pendown()
             pen_down = True
-            # compute distance from prev_point to current
+
         dx = x - prev_point[0]
         dy = y - prev_point[1]
         dist = math.hypot(dx, dy)
         total_distance += dist
-            # move (drawing a line)
+
         turtleDraw.goto(x, y)
         prev_point = (x, y)
+
+    right_x = 450 / 2 - 10  
+    bottom_y = -450 / 2 + 20 
+    writer.goto(right_x, bottom_y)
+    writer.write(f"Total distance = {total_distance:.2f}", align="right", font=("Arial", 12, "normal"))
+
+    window.update()
+
+input("Press Enter to close the window...")
+turtle.bye()
