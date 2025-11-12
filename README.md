@@ -2,4 +2,4 @@
 
 Author: Ethan Fisher
 
-Credits: ChatGPT Eric Pogue
+Credits: ChatGPT, Eric Pogue
