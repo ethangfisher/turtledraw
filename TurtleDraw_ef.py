@@ -10,14 +10,14 @@ window.bgcolor("white")
 
 turtleDraw = turtle.Turtle()
 turtleDraw.hideturtle()                   
-turtleDraw.speed(10)                        
+turtleDraw.speed(0)                        
 turtleDraw.penup()                        
 turtleDraw.showturtle()
 
 writer = turtle.Turtle()
 writer.hideturtle()
 writer.penup()
-writer.speed(10)
+writer.speed(0)
 
 fname = input("Enter input filename: ").strip()
 try:
@@ -84,12 +84,13 @@ for line in file:
         turtleDraw.goto(x, y)
         prev_point = (x, y)
 
-    right_x = 450 / 2 - 10  
-    bottom_y = -450 / 2 + 20 
-    writer.goto(right_x, bottom_y)
-    writer.write(f"Total distance = {total_distance:.2f}", align="right", font=("Arial", 12, "normal"))
+writer.clear()
+right_x = 450 / 2 - 10  
+bottom_y = -450 / 2 + 20 
+writer.goto(right_x, bottom_y)
+writer.write(f"Total distance Marked = {total_distance:.2f}", align="right", font=("Arial", 12, "normal"))
 
-    window.update()
+window.update()
 
-input("Press Enter to close the window...")
+input("Press Enter to close the window")
 turtle.bye()
