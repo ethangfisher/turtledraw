@@ -93,4 +93,4 @@ writer.write(f"Total distance Marked = {total_distance:.2f}", align="right", fon
 window.update()
 
 input("Press Enter to close the window:")
-print("\End")
+print("\nEnd")
