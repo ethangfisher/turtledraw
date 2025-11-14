@@ -19,11 +19,11 @@ writer.hideturtle()
 writer.penup()
 writer.speed(0)
 
-fname = input("Enter input filename: ").strip()
+filename = input("Enter input filename: ").strip()
 try:
-    infile = open(fname, "r")
+    infile = open(filename, "r")
 except Exception as e:
-    print(f"Error opening file '{fname}': {e}")
+    print(f"Error opening file '{filename}': {e}")
     'return'
 
 total_distance = 0.0
@@ -92,5 +92,5 @@ writer.write(f"Total distance Marked = {total_distance:.2f}", align="right", fon
 
 window.update()
 
-input("Press Enter to close the window")
-turtle.bye()
+input("Press Enter to close the window:")
+print("\End")
